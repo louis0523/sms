@@ -47,7 +47,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public BaseResult UpdateStudentInfo(UpdateStuInfo updateStuInfo) {
+    public BaseResult  UpdateStudentInfo(UpdateStuInfo updateStuInfo) {
         return null;
     }
 
