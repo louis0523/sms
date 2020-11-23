@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huawei.sms.mapper.CourseInfosMapper">
+  <resultMap id="BaseResultMap" type="com.huawei.sms.pojo.CourseInfos">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="courseName" jdbcType="VARCHAR" property="courseName" />
+    <result column="courseTime" jdbcType="DOUBLE" property="courseTime" />
+    <result column="coursePeriod" jdbcType="DOUBLE" property="coursePeriod" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, courseName, courseTime, coursePeriod
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from courseinfos
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from courseinfos
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.huawei.sms.pojo.CourseInfos" useGeneratedKeys="true">
+    insert into courseinfos (courseName, courseTime, coursePeriod
+      )
+    values (#{courseName,jdbcType=VARCHAR}, #{courseTime,jdbcType=DOUBLE}, #{coursePeriod,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.huawei.sms.pojo.CourseInfos" useGeneratedKeys="true">
+    insert into courseinfos
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        courseName,
+      </if>
+      <if test="courseTime != null">
+        courseTime,
+      </if>
+      <if test="coursePeriod != null">
+        coursePeriod,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseName != null">
+        #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        #{courseTime,jdbcType=DOUBLE},
+      </if>
+      <if test="coursePeriod != null">
+        #{coursePeriod,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.huawei.sms.pojo.CourseInfos">
+    update courseinfos
+    <set>
+      <if test="courseName != null">
+        courseName = #{courseName,jdbcType=VARCHAR},
+      </if>
+      <if test="courseTime != null">
+        courseTime = #{courseTime,jdbcType=DOUBLE},
+      </if>
+      <if test="coursePeriod != null">
+        coursePeriod = #{coursePeriod,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.huawei.sms.pojo.CourseInfos">
+    update courseinfos
+    set courseName = #{courseName,jdbcType=VARCHAR},
+      courseTime = #{courseTime,jdbcType=DOUBLE},
+      coursePeriod = #{coursePeriod,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
