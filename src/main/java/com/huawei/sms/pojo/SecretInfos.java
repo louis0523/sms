@@ -1,9 +1,15 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ */
+
 package com.huawei.sms.pojo;
 
-import java.io.Serializable;
-
 import com.huawei.sms.pojo.bean.AddStuInfos;
+import com.huawei.sms.pojo.bean.UpdateStuInfo;
+
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * secretinfos
@@ -65,5 +71,14 @@ public class SecretInfos implements Serializable {
         this.moPhone = addStuInfos.getMoPhone();
         this.address = addStuInfos.getAddress();
         this.stuNo = stuNo;
+    }
+
+    public SecretInfos(UpdateStuInfo updateStuInfo) {
+        this.faName = updateStuInfo.getFaName();
+        this.faPhone = updateStuInfo.getFaPhone();
+        this.moName = updateStuInfo.getMoName();
+        this.moPhone = updateStuInfo.getMoPhone();
+        this.address = updateStuInfo.getAddress();
+        this.stuNo = updateStuInfo.getStuNo();
     }
 }

@@ -1303,12 +1303,18 @@
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="318" parent="289" name="PRIMARY">
+    <column id="318" parent="289" name="stuCooerId">
+      <Position>10</Position>
+      <Comment>班主任id</Comment>
+      <DataType>int(11)|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <key id="319" parent="289" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="319" parent="290" name="id">
+    <column id="320" parent="290" name="id">
       <Position>1</Position>
       <Comment>教师id</Comment>
       <DataType>int(11)|0s</DataType>
@@ -1316,43 +1322,43 @@
       <SequenceIdentity>1</SequenceIdentity>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="320" parent="290" name="teaName">
+    <column id="321" parent="290" name="teaName">
       <Position>2</Position>
       <Comment>教师姓名</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="321" parent="290" name="teaAge">
+    <column id="322" parent="290" name="teaAge">
       <Position>3</Position>
       <Comment>教师年龄</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="322" parent="290" name="birthDay">
+    <column id="323" parent="290" name="birthDay">
       <Position>4</Position>
       <Comment>出生日期</Comment>
       <DataType>date|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="323" parent="290" name="teaSex">
+    <column id="324" parent="290" name="teaSex">
       <Position>5</Position>
       <Comment>教师性别</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="324" parent="290" name="teaPhone">
+    <column id="325" parent="290" name="teaPhone">
       <Position>6</Position>
       <Comment>教师手机号码</Comment>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="325" parent="290" name="teaPosition">
+    <column id="326" parent="290" name="teaPosition">
       <Position>7</Position>
       <Comment>职务</Comment>
       <DataType>int(11)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="326" parent="290" name="PRIMARY">
+    <key id="327" parent="290" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>

@@ -1,21 +1,28 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ */
+
 package com.huawei.sms.pojo;
+
+import com.huawei.sms.pojo.bean.AddStuInfos;
+import com.huawei.sms.pojo.bean.UpdateStuInfo;
+import com.huawei.sms.utils.DateUtils;
+
+import io.swagger.annotations.ApiModel;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import com.huawei.sms.pojo.bean.AddStuInfos;
-import com.huawei.sms.utils.DateUtils;
-import io.swagger.annotations.ApiModel;
-import lombok.Data;
-import org.springframework.validation.annotation.Validated;
-
-import javax.validation.constraints.NotEmpty;
 
 /**
  * studentinfos
  * @author 
  */
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @ApiModel(description = "接口实体")
 public class StudentInfos implements Serializable {
     /**
@@ -63,21 +70,13 @@ public class StudentInfos implements Serializable {
      */
     private Integer stuSecret;
 
+    /**
+     * 班主任id
+     */
+    private Integer stuCooerId;
+
     private static final long serialVersionUID = 1L;
 
-    public StudentInfos(Integer id, String stuNo, String stuName, Integer stuSex, Date birthday, Integer stuAge, String stuGrade, String stuClass, Integer stuSecret) {
-        this.id = id;
-        this.stuNo = stuNo;
-        this.stuName = stuName;
-        this.stuSex = stuSex;
-        this.birthday = birthday;
-        this.stuAge = stuAge;
-        this.stuGrade = stuGrade;
-        this.stuClass = stuClass;
-        this.stuSecret = stuSecret;
-    }
-    public StudentInfos() {
-    }
     public StudentInfos(AddStuInfos addStuInfos,String stuNo,Integer stuSecret) {
         this.stuNo = stuNo;
         this.stuName = addStuInfos.getStuName();
@@ -87,5 +86,15 @@ public class StudentInfos implements Serializable {
         this.stuGrade = addStuInfos.getStuGrade();
         this.stuClass = addStuInfos.getStuClass();
         this.stuSecret = stuSecret;
+    }
+
+    public StudentInfos(UpdateStuInfo updateStuInfo) {
+        this.stuNo = updateStuInfo.getStuNo();
+        this.stuName = updateStuInfo.getStuName();
+        this.stuSex = updateStuInfo.getStuSex();
+        this.birthday = DateUtils.strToDate(updateStuInfo.getBirthday());
+        this.stuAge = updateStuInfo.getStuSex();
+        this.stuGrade = updateStuInfo.getStuGrade();
+        this.stuClass = updateStuInfo.getStuClass();
     }
 }

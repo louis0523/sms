@@ -1,15 +1,15 @@
-package com.huawei.sms.pojo;
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ */
 
-import java.io.Serializable;
-import java.util.Date;
+package com.huawei.sms.pojo;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
 
-/**
- * teacherinfos
- * @author 
- */
+import java.io.Serializable;
+import java.util.Date;
+
 @Data
 @ApiModel(description = "接口实体")
 public class TeacherInfos implements Serializable {

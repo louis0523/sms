@@ -1,55 +1,68 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ */
+
 package com.huawei.sms.service.impl;
 
-import cn.hutool.core.util.IdUtil;
-import com.huawei.sms.mapper.SecretInfosMapper;
-import com.huawei.sms.mapper.StudentInfosMapper;
-import com.huawei.sms.pojo.SecretInfos;
-import com.huawei.sms.pojo.StudentInfos;
-import com.huawei.sms.pojo.bean.AddStuInfos;
-import com.huawei.sms.pojo.bean.BaseResult;
-import com.huawei.sms.pojo.bean.UpdateStuInfo;
+import static com.huawei.sms.config.SmsEnums.MAC_NUM_0;
+import static com.huawei.sms.config.SmsEnums.SERVER_DELETE_STUDENT_ERROR_MSG;
+import static com.huawei.sms.config.SmsEnums.SERVER_REGISTER_ERROR;
+import static com.huawei.sms.config.SmsEnums.SERVER_REGISTER_PARENT_ERROR_MSG;
+import static com.huawei.sms.config.SmsEnums.SERVER_REGISTER_STUDENT_ERROR_MSG;
+import static com.huawei.sms.config.SmsEnums.SERVER_SUCCESS;
+import static com.huawei.sms.config.SmsEnums.SERVER_SUCCESS_MSG;
+import static com.huawei.sms.config.SmsEnums.SERVER_UPDATE_PARENT_ERROR_MSG;
+import static com.huawei.sms.config.SmsEnums.SERVER_UPDATE_STUDENT_ERROR_MSG;
+import static com.huawei.sms.config.SmsEnums.STUDENT_IS_NOT_EXIST;
+
+import com.huawei.sms.mapper.*;
+import com.huawei.sms.pojo.*;
+import com.huawei.sms.pojo.bean.*;
 import com.huawei.sms.service.StudentService;
+
+import cn.hutool.core.util.IdUtil;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-
-import static com.huawei.sms.config.SmsEnums.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service("studentService")
 public class StudentServiceImpl implements StudentService {
 
     @Resource
+    private TeacherInfosMapper teacherInfosMapper;
+    @Resource
+    private CourseInfosMapper courseInfosMapper;
+    @Resource
     private StudentInfosMapper studentInfosMapper;
+    @Resource
+    private StuCourseInfosMapper stucourseInfosMapper;
     @Resource
     private SecretInfosMapper secretInfosMapper;
 
-
-    @Transactional
     @Override
-    public BaseResult AddStudentInfo(AddStuInfos addStuInfos) {
-        BaseResult result = null;
-        String stuNo = IdUtil.simpleUUID();
-        SecretInfos secretInfos = new SecretInfos(addStuInfos,stuNo);
-        int insertNum = secretInfosMapper.insert(secretInfos);
-        if (insertNum>0){
-            StudentInfos studentInfos = new StudentInfos(addStuInfos,stuNo,secretInfos.getId());
-            insertNum = studentInfosMapper.insert(studentInfos);
-            if (insertNum>0){
-                result = new BaseResult(SERVER_SUCCESS,SERVER_SUCCESS_MSG,"");
-            }else {
-                result = new BaseResult(SERVER_REGISTER_ERROR,SERVER_REGISTER_STUDENT_ERROR_MSG,"");
-            }
-        }else {
-            result = new BaseResult(SERVER_REGISTER_ERROR,SERVER_REGISTER_PARENT_ERROR_MSG,"");
+    public BaseResult stuQueryInfos(String stuNo) throws Exception {
+        StudentInfos studentInfos = studentInfosMapper.selectByPrimaryKey(stuNo);
+        SecretInfos secretInfos = secretInfosMapper.selectByPrimaryKey(stuNo);
+        List<StuCourseInfos> stuCourseInfosList = stucourseInfosMapper.queryStuCourseByStuId(studentInfos.getId());
+        // 获取教师id 课程id
+        List<BaseReTeaCourseInfos> baseReTeaCourseInfosList = new ArrayList<>();
+        for (int j = 0; j < stuCourseInfosList.size(); j++) {
+            StuCourseInfos stuCourseInfos = stuCourseInfosList.get(j);
+            Integer courId = stuCourseInfos.getCourId();
+            Integer teaId = stuCourseInfos.getTeaId();
+            TeacherInfos teacherInfos = teacherInfosMapper.selectByPrimaryKey(teaId);
+            CourseInfos courseInfos = courseInfosMapper.selectByPrimaryKey(courId);
+            BaseReTeaCourseInfos baseReTeaCourseInfos =new BaseReTeaCourseInfos(teacherInfos,courseInfos);
+            // 组装数据
+            baseReTeaCourseInfosList.add(baseReTeaCourseInfos);
         }
-        return result = new BaseResult(SERVER_ERROR,SERVER_ERROR_MSG,"");
+        BaseReStuInfo baseReStuInfo = new BaseReStuInfo(studentInfos,secretInfos,baseReTeaCourseInfosList);
+        return new BaseResult(SERVER_SUCCESS, SERVER_SUCCESS_MSG, baseReStuInfo);
     }
-
-    @Override
-    public BaseResult  UpdateStudentInfo(UpdateStuInfo updateStuInfo) {
-        return null;
-    }
-
 
 }

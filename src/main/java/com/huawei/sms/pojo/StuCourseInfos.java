@@ -1,9 +1,13 @@
-package com.huawei.sms.pojo;
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ */
 
-import java.io.Serializable;
+package com.huawei.sms.pojo;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * stucourseinfos

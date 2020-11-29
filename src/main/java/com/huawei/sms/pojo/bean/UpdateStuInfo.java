@@ -1,20 +1,27 @@
+/*
+ * Copyright (c) Huawei Technologies Co., Ltd. 2020-2020. All rights reserved.
+ */
+
 package com.huawei.sms.pojo.bean;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import org.hibernate.validator.constraints.Range;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.io.Serializable;
+
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Validated
+@ApiModel(description = "接口实体")
 public class UpdateStuInfo implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
